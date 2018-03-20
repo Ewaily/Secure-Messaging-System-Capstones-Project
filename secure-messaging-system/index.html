@@ -1,0 +1,84 @@
+
+<html>
+<head>
+	<title>Cybersecurity Capstone Project</title>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+
+	<script src="https://code.jquery.com/jquery-2.1.3.js" integrity="sha256-goy7ystDD5xbXSf+kwL4eV6zOPJCEBD1FBiCElIm+U8=" crossorigin="anonymous"></script>
+
+</head>
+
+
+<body>
+	<div id="header"><img src="images/header.png" /></div>
+	<div id="menu">
+	<ul>
+		<li><a href="index.php">Home</a></li>
+		<li><a href="inbox.php">Inbox</a></li>
+		<li><a href="about.html">About</a></li>
+	</ul>
+	</div>
+	<div class="sidebar">
+	<h2>Quick Links</h2>				 
+	<p>►&nbsp <a href="https://www.heroku.com">Heroku</a></p>
+	<p>►&nbsp <a href="https://www.coursera.org">Coursera</a></p>
+	<p>►&nbsp <a href="https://builditbreakit.org/">Build it Break it Fix it</a></p>
+	<p>►&nbsp <a href="https://www.umd.edu">University of Maryland</a></p>
+	<p>►&nbsp <a href="https://www.coursera.org/specializations/cyber-security">Cybersecurity Specialization</a></p>
+	</div>
+	
+	<div class="contents">
+	<h1>Welcome to the Cybersecurity Capstone Project!</h1>
+		<form>
+			<p><input type="text" id="login" placeholder="   Username"></p>
+			<p><input type="password" id="pass" placeholder="   Password"></p>
+			<p class="remember_me"></p>
+
+		<p><input type="button" id="login_btn" value="Login">&nbsp or &nbsp <a href="reg.html"><input type="button" name="reg" value="Register"></a> </p>
+	  </form>
+			<p  id="mnb">Forgot your password? <a class="reset" href="reset.html">Click here to reset it</a>.</p>
+
+	</div>
+
+   
+	
+
+	<div id="footer">© 2018 Cybersecurity Capstone Project . All rights reserved | Muhammad Ewaily</div>
+</body>
+
+
+
+<script>
+
+	$('#login_btn').click(function () {
+
+		$.ajax({
+				type: "POST",
+				url: "./login-controller.php",
+				data: {
+					"Username": $('#login').val(),
+					"pass": $("#pass").val()
+				},
+				dataType: "application/json"
+
+			})
+		.complete(function (res) {
+					console.log(res);
+					var res = JSON.parse(res.responseText);
+					console.log(res);
+					if(res.u_id) {
+						location.href = "./home.php";
+					}
+					else{
+						alert("Wrong user name or password");
+						document.getElementById("login").value = "";
+						document.getElementById("pass").value = "";
+					}
+					
+				});
+			
+	});
+
+
+</script>
+</html>
